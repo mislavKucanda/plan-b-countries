@@ -21,10 +21,7 @@ function collect(connect, monitor) {
 }
 
 const boxTarget = {
-  drop(props, secondProps, thirdProp) {
-    console.log('ispustena kartica: ', props);
-    console.log('secondProps: ', secondProps);
-    console.log('third prop: ', thirdProp);
+  drop(props) {
     Store.addCountryToContinentBox(Store.draggedCountry, props.name);
   }
 };

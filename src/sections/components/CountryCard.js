@@ -10,7 +10,7 @@ import locationIcon from '../../theme/assets/location.png';
 
 
 const Container = styled.div`
-  background-color: ${colors.blue};
+  background-color: ${props => props.isWrong ? colors.red :colors.blue};
   margin-top: 10px;
   height: 60px;
   width: 200px;
@@ -29,7 +29,6 @@ const Icon = styled.img`
 
 const cardSource = {
   beginDrag(props) {
-    console.log('beginDrag props: ', props);
     Store.draggedCountry = props.country;
     return { cardProps: props };
   }
@@ -45,11 +44,11 @@ function collect(connect, monitor) {
 @observer
 class CountryCardComponent extends Component {
   render() {
-    const { country: { name }, connectDragSource, isDragging }  = this.props;
+    const { country: { name, isWrong }, connectDragSource, isDragging }  = this.props;
 
     return connectDragSource(
       <div>
-        <Container isDragging={isDragging}>
+        <Container isDragging={isDragging} isWrong={isWrong}>
           <Icon src={locationIcon} />
           {name}
         </Container>

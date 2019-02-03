@@ -44,8 +44,10 @@ class MobXStore {
       if (continent.name === continentName) {
         if (continent.countries.filter(correctCountry => correctCountry.name === country.name).length === 1) {
           continent.score += 1;
+          continent.selectedCountries.push({ ...country });
+        } else {
+          continent.selectedCountries.push({ ...country, isWrong: true });
         }
-        continent.selectedCountries.push({ ...country });
       }
       return continent;
     });
