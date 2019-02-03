@@ -8,7 +8,7 @@ import rightHeaderEndIcon from '../theme/assets/right-header-end.png';
 import globeIcon from '../theme/assets/globe-icon.png';
 
 const HeaderContainer = styled.div`
-  margin: 20px auto 80px auto;
+  margin: 10px auto 50px auto;
   height: 50px;
   background-color: ${colors.blue};
   max-width: 1100px;
