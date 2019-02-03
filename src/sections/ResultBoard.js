@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { observer } from 'mobx-react';
 
 import { colors } from '../theme/colors';
+import { Store } from '../mobx/store';
 
 import starIcon from '../theme/assets/star.png';
 import prizeIcon from '../theme/assets/prize.png';
@@ -51,13 +53,19 @@ const Prize = styled.img`
   margin-top: 80px;
 `;
 
-export class ResultBoard extends Component {
+@observer
+class ResultBoardComponent extends Component {
   render() {
+    const result =
+      Store.generatedContinents[0].score +
+      Store.generatedContinents[1].score +
+      Store.generatedContinents[2].score;
+
     return (
       <ResultBoardContainer>
         <TotalText>Total:</TotalText>
         <Result>
-          45 <Star src={starIcon} />
+          {result} <Star src={starIcon} />
         </Result>
         <Prize src={prizeIcon} />
         <Divider />
@@ -65,3 +73,5 @@ export class ResultBoard extends Component {
     );
   }
 }
+
+export const ResultBoard = ResultBoardComponent;

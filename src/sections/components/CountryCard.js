@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { observer } from 'mobx-react';
+import { DragSource } from 'react-dnd';
 
 import { colors } from '../../theme/colors';
+import { Store } from '../../mobx/store';
 
 import locationIcon from '../../theme/assets/location.png';
+
 
 const Container = styled.div`
   background-color: ${colors.blue};
@@ -14,6 +18,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: flex-start;
   color: ${colors.cardTextColor};
+  ${props => props.isDragging && 'opacity: 0.2;'}
 `;
 
 const Icon = styled.img`
@@ -22,13 +27,35 @@ const Icon = styled.img`
   margin: 0 10px;
 `;
 
-export class CountryCard extends Component {
+const cardSource = {
+  beginDrag(props) {
+    console.log('beginDrag props: ', props);
+    Store.draggedCountry = props.country;
+    return { cardProps: props };
+  }
+};
+
+function collect(connect, monitor) {
+  return {
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging()
+  }
+}
+
+@observer
+class CountryCardComponent extends Component {
   render() {
-    return (
-      <Container>
-        <Icon src={locationIcon} />
-        Monte Negro
-      </Container>
+    const { country: { name }, connectDragSource, isDragging }  = this.props;
+
+    return connectDragSource(
+      <div>
+        <Container isDragging={isDragging}>
+          <Icon src={locationIcon} />
+          {name}
+        </Container>
+      </div>
     );
   }
 }
+
+export const CountryCard = DragSource('card', cardSource, collect)(CountryCardComponent);

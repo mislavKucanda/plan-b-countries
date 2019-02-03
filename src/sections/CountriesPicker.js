@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { observer } from 'mobx-react';
+import bind from 'autobind-decorator';
 
 import { CountryCard } from './components/CountryCard';
 
 import { colors } from '../theme/colors';
+import { Store } from '../mobx/store';
 
 const Container = styled.div`
   width: 880px;
@@ -22,21 +25,23 @@ const CountriesContainer = styled.div`
   justify-content: space-around;
 `;
 
-export class CountriesPicker extends Component {
+@observer
+class CountriesPickerComponent extends Component {
+  @bind
+  renderCountry(country) {
+    return <CountryCard country={country} key={country.name} />;
+  }
+
   render() {
     return (
       <Container>
         <Divider />
         <CountriesContainer>
-          <CountryCard />
-          <CountryCard />
-          <CountryCard />
-          <CountryCard />
-          <CountryCard />
-          <CountryCard />
-          <CountryCard />
+          {Store.generatedCountries.map(this.renderCountry)}
         </CountriesContainer>
       </Container>
     );
   }
 }
+
+export const CountriesPicker = CountriesPickerComponent;

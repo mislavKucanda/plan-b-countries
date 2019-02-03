@@ -21,9 +21,11 @@ const Star = styled.img`
 
 export class ResultPanel extends Component {
   render() {
+    const { score } = this.props;
+
     return (
       <Container>
-        4 <Star src={starIcon} />
+        {score} <Star src={starIcon} />
       </Container>
     );
   }

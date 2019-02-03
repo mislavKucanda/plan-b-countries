@@ -14,9 +14,11 @@ const Container = styled.div`
 
 export class ContinentHeader extends Component {
   render() {
+    const { name } = this.props;
+
     return (
       <Container>
-        Europe
+        {name}
       </Container>
     );
   }

@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { Query } from 'react-apollo';
 import { observer } from 'mobx-react';
+import { DragDropContextProvider } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 
 import { Game } from './pages/Game'
 
 import { apolloClient, GET_GEO_DATA } from './graphql/graphql-api';
 
+@observer
 class App extends Component {
   render() {
     return (
@@ -13,9 +16,10 @@ class App extends Component {
         {({loading, error, data}) => {
           if (loading) return <p>Loading...</p>;
           if (error) return <p>{error.message}</p>;
-          console.log('continents from store: ', this.props.store.continents);
           return (
-            <Game continents={data.continents} />
+            <DragDropContextProvider backend={HTML5Backend}>
+              <Game continents={data.continents} />
+            </DragDropContextProvider>
           );
         }}
       </Query>
@@ -23,4 +27,4 @@ class App extends Component {
   }
 }
 
-export default observer(App);
+export default App;

@@ -1,25 +1,57 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import bind from 'autobind-decorator';
+import { DropTarget } from 'react-dnd';
 
 import { ContinentHeader } from './ContinentHeader';
 import { CountryCard } from './CountryCard';
 import { ResultPanel } from './ResultPanel';
 
+import { Store } from '../../mobx/store';
+
 const Container = styled.div`
-  flex: 1;
-  padding: 0 10px;
   position: relative;
 `;
 
-export class ContinentBox extends Component {
+function collect(connect, monitor) {
+  return {
+    connectDropTarget: connect.dropTarget(),
+    isOver: monitor.isOver()
+  };
+}
+
+const boxTarget = {
+  drop(props, secondProps, thirdProp) {
+    console.log('ispustena kartica: ', props);
+    console.log('secondProps: ', secondProps);
+    console.log('third prop: ', thirdProp);
+    Store.addCountryToContinentBox(Store.draggedCountry, props.name);
+  }
+};
+
+class ContinentBoxComponent extends Component {
+  @bind
+  renderCountryCard(country) {
+    return <CountryCard key={country.name} country={country} />;
+  }
+
   render() {
-    return (
-      <Container>
-        <ContinentHeader />
-        <ResultPanel />
-        <CountryCard />
-        <CountryCard />
-      </Container>
+    const { name, selectedCountries, score, connectDropTarget, isOver } = this.props;
+
+    return connectDropTarget(
+      <div style={{
+        flex: 1,
+        padding: '0 10px',
+        backgroundColor: isOver ? '#B8CBDA' : 'white' }}
+      >
+        <Container>
+          <ContinentHeader name={name} />
+          <ResultPanel score={score} />
+          {selectedCountries.map(this.renderCountryCard)}
+        </Container>
+      </div>
     );
   }
 }
+
+export const ContinentBox = DropTarget('card', boxTarget, collect)(ContinentBoxComponent);

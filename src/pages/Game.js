@@ -4,10 +4,22 @@ import { observer } from 'mobx-react';
 import { Header } from '../sections/Header';
 import { Content } from '../sections/Content';
 
+import { Store } from '../mobx/store';
+
+@observer
 class GameComponent extends Component {
-  render() {
+  componentDidMount() {
     const { continents } = this.props;
-    console.log('continents: ', continents);
+    console.log('continents in componentDidMount: ', continents);
+    Store.continents = continents;
+    Store.initializeGame()
+  }
+
+  render() {
+    console.log('generatedContinents: ', Store.generatedContinents[0].name);
+    console.log('generatedContinents: ', Store.generatedContinents[1].name);
+    console.log('generatedContinents: ', Store.generatedContinents[2].name);
+    console.log('generatedCountries: ', Store.generatedCountries);
 
     return (
       <div>
@@ -18,4 +30,4 @@ class GameComponent extends Component {
   }
 }
 
-export const Game = observer(GameComponent);
+export const Game = GameComponent;
