@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import bind from 'autobind-decorator';
+import { observer } from 'mobx-react';
 
 import { ContinentBox } from './components/ContinentBox';
 
@@ -11,7 +12,8 @@ const Container = styled.div`
   display: flex;
 `;
 
-export class ContinentsTarget extends Component {
+@observer
+class ContinentsTargetComponent extends Component {
   @bind
   renderContinentBox({ name, selectedCountries, score }) {
     return (
@@ -30,3 +32,5 @@ export class ContinentsTarget extends Component {
     );
   }
 }
+
+export const ContinentsTarget = ContinentsTargetComponent;
