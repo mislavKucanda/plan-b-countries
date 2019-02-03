@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Query } from 'react-apollo';
 
-import { Game } from './components/Game'
+import { Game } from './pages/Game'
 
 import { apolloClient, GET_GEO_DATA } from './graphql/graphql-api';
 
