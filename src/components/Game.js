@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 
+import { Header } from './Header';
+import { Content } from './Content';
+
 export class Game extends Component {
   render() {
     const { continents } = this.props;
@@ -7,7 +10,8 @@ export class Game extends Component {
 
     return (
       <div>
-        Page
+        <Header />
+        <Content />
       </div>
     );
   }
