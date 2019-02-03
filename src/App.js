@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Query } from 'react-apollo';
+import { observer } from 'mobx-react';
 
 import { Game } from './pages/Game'
 
@@ -12,6 +13,7 @@ class App extends Component {
         {({loading, error, data}) => {
           if (loading) return <p>Loading...</p>;
           if (error) return <p>{error.message}</p>;
+          console.log('continents from store: ', this.props.store.continents);
           return (
             <Game continents={data.continents} />
           );
@@ -21,4 +23,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default observer(App);

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import { observer } from 'mobx-react';
 
 import { Header } from '../sections/Header';
 import { Content } from '../sections/Content';
 
-export class Game extends Component {
+class GameComponent extends Component {
   render() {
     const { continents } = this.props;
     console.log('continents: ', continents);
@@ -16,3 +17,5 @@ export class Game extends Component {
     );
   }
 }
+
+export const Game = observer(GameComponent);
