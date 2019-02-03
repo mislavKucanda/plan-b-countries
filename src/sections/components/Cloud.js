@@ -8,12 +8,12 @@ import arrowIcon from '../../theme/assets/arrow-icon.png';
 const Container = styled.div` 
   position: absolute;
   width: 220px;
-  height: 155px;
+  height: 150px;
   background-color: ${colors.grey};
-  top: -5px;
+  top: 0;
   left: -5px;
   display: flex;
-    align-items: center;
+  align-items: center;
 `;
 
 const Text = styled.div`

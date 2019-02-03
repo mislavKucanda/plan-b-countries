@@ -1,14 +1,21 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
-const ContinentsContainer = styled.div`
+import { ContinentBox } from './components/ContinentBox';
+
+const Container = styled.div`
   width: 660px;
+  display: flex;
 `;
 
 export class ContinentsTarget extends Component {
   render() {
     return (
-      <ContinentsContainer>Continents target</ContinentsContainer>
+      <Container>
+        <ContinentBox />
+        <ContinentBox />
+        <ContinentBox />
+      </Container>
     );
   }
 }
