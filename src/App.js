@@ -1,26 +1,22 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Query } from 'react-apollo';
+
+import { Game } from './components/Game'
+
+import { apolloClient, GET_GEO_DATA } from './graphql/graphql-api';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <Query query={GET_GEO_DATA} client={apolloClient}>
+        {({loading, error, data}) => {
+          if (loading) return <p>Loading...</p>;
+          if (error) return <p>{error.message}</p>;
+          return (
+            <Game continents={data.continents} />
+          );
+        }}
+      </Query>
     );
   }
 }
